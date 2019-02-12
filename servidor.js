@@ -32,7 +32,12 @@ var partida = {
         [2, ["A","Q","K","J","10","9","8","7","6","5","4","3","2"]], // Piques ♠
         [3 , ["A","Q","K","J","10","9","8","7","6","5","4","3","2"]], // Trèbol  ♣
 
+
+
     ],
+
+
+    
 
     jugadors : Array(
 
@@ -46,34 +51,86 @@ var partida = {
     
 };
 
+function obtenirCarta(){
 
-
-
-    
-function repartirCartes(jugador){
+    var funcio = "[obtenirCarta] ";
 
     var baralla = 4; //Num de baralles
     var cartes = 13;    //Num de cartes
 
+    var bEscollida = 0;
+    var cEscollida = 0;
 
+    var carta = [];
+
+    var valor = null;
+
+    do{
+
+        bEscollida =Math.floor(Math.random()*baralla);
+        cEscollida =Math.floor(Math.random()*cartes);
+
+        valor = partida.barallaCartes[bEscollida][1][cEscollida];
+
+    }while(valor == undefined);
     /* Random de la carta */
-   var bEscollida =Math.floor(Math.random()*baralla);
-   var cEscollida =Math.floor(Math.random()*cartes);
+
+    delete partida.barallaCartes[bEscollida][1][cEscollida];
    
-   console.log("Baralla: "+bEscollida);
-   console.log("cEscollida: "+cEscollida);
+
+   console.log(funcio+ "Baralla: "+bEscollida);
+   console.log(funcio +"cEscollida: "+cEscollida);
+   console.log(funcio +"valor: "+valor);
 
 
-  /*  var bcarta = partida.barallaCartes[bEscollida]; */
-   var carta = partida.barallaCartes[bEscollida[1,[cEscollida] ]];
+    /* delete array(1); */
+    carta[bEscollida] = valor;
+    console.log(funcio +"carta: "+carta);
+
+    
+    return c = [bEscollida,carta[bEscollida]]; // Baralla i carta
+
+   
+}
+
+
+    
+function repartirCartes(idJugador){
+
+    var funcio= "[repatirCartes] ";
+
+    
+
+    var cont =0;
+
+    var pos =0;
+
+   do{
+
+        
+    var carta = obtenirCarta();
+
+    console.log(funcio +"baralla "+ carta[0]);
+    console.log(funcio +"carta "+ carta[1]);
+   
+
+    /* partida.barallaCartes[bEscollida][1][cEscollida] */
+    if(partida.jugadors[idJugador].cartes[carta[0]] == undefined){
+        partida.jugadors[idJugador].cartes.push(carta[0]);
+    }
+
+   
+    partida.jugadors[idJugador].cartes[carta[0]] = carta[0][1][carta[1]];
+
+    cont++;
+   }while(cont!=5);
 
    
    /* partida.barallaCartes[0][1][0]
    
-   partida.barallaCartes[bEscollida][1][cEscollida]*/
-   console.log("Carta: "+partida.barallaCartes[bEscollida][1][cEscollida]);
-
-    /* jugador.cartes[bcarta][carta]; */
+  */
+   
+    console.log(funcio+ partida.jugadors[idJugador].cartes.toString());
 
 }
 
@@ -83,7 +140,22 @@ function repartirCartes(jugador){
 
 app.get('/iniciarjoc/:id/:nom', function (req, res, next){
 
+    var iniciaJoc = "[IniciaJoc]: ";
+
         partida.id = 1;
+
+        var idJugador = req.params.id;
+        var nomJugador = req.params.nom;
+
+
+        partida.jugadors[idJugador] ={
+            nom : nomJugador,
+            cartes : [],
+            intents : 0, 
+            victories : 0,
+        };
+
+        repartirCartes(idJugador);
         
         var jugadorA = {
             nom: (req.params.nom),
@@ -92,12 +164,12 @@ app.get('/iniciarjoc/:id/:nom', function (req, res, next){
             victories: 0,
         };
 
-        console.log(jugadorA.cartes);
+        /* console.log(jugadorA.cartes); */
 
-        repartirCartes(jugadorA);
+        /* repartirCartes(jugadorA); */
 
 
-        res.send("Rebut: "+req.params.nom+ "\n"+req.params.id );
+        res.send("Rebut: "+partida.jugadors[idJugador].nom+ "\n id"+idJugador+"\n "+partida.jugadors[idJugador].cartes.toString());
         /* res.send("Rebut: "+req.params.id); */
 });
 
