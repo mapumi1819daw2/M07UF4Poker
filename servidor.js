@@ -59,11 +59,21 @@ function repartirCartes(jugador){
     /* Random de la carta */
    var bEscollida =Math.floor(Math.random()*baralla);
    var cEscollida =Math.floor(Math.random()*cartes);
+   
+   console.log("Baralla: "+bEscollida);
+   console.log("cEscollida: "+cEscollida);
 
-   var bcarta = partida.barallaCartes[bEscollida];
-   var carta = partida.barallaCartes[cEscollida];
 
-    jugador.cartes[bcarta][carta];
+  /*  var bcarta = partida.barallaCartes[bEscollida]; */
+   var carta = partida.barallaCartes[bEscollida[1,[cEscollida] ]];
+
+   
+   /* partida.barallaCartes[0][1][0]
+   
+   partida.barallaCartes[bEscollida][1][cEscollida]*/
+   console.log("Carta: "+partida.barallaCartes[bEscollida][1][cEscollida]);
+
+    /* jugador.cartes[bcarta][carta]; */
 
 }
 
@@ -87,8 +97,8 @@ app.get('/iniciarjoc/:id/:nom', function (req, res, next){
         repartirCartes(jugadorA);
 
 
-        res.send("Rebut: "+req.params.nom);
-        res.send("Rebut: "+req.params.id);
+        res.send("Rebut: "+req.params.nom+ "\n"+req.params.id );
+        /* res.send("Rebut: "+req.params.id); */
 });
 
 
