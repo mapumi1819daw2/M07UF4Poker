@@ -79,16 +79,16 @@ function obtenirCarta(){
    
 
    console.log(funcio+ "Baralla: "+bEscollida);
-   console.log(funcio +"cEscollida: "+cEscollida);
+   /* console.log(funcio +"cEscollida: "+cEscollida); */
    console.log(funcio +"valor: "+valor);
 
 
     /* delete array(1); */
-    carta[bEscollida] = valor;
-    console.log(funcio +"carta: "+carta);
+   /*  carta[bEscollida] = valor; */
+   /*  console.log(funcio +"carta: "+carta); */
 
     
-    return c = [bEscollida,carta[bEscollida]]; // Baralla i carta
+    return c = [bEscollida,valor]; // Baralla i carta
 
    
 }
@@ -115,12 +115,16 @@ function repartirCartes(idJugador){
    
 
     /* partida.barallaCartes[bEscollida][1][cEscollida] */
-    if(partida.jugadors[idJugador].cartes[carta[0]] == undefined){
-        partida.jugadors[idJugador].cartes.push(carta[0]);
-    }
-
+    
+    /* Baralla escollida */
+    
+       
+        /* partida.jugadors[idJugador].cartes.push(carta[0]); */
    
-    partida.jugadors[idJugador].cartes[carta[0]] = carta[0][1][carta[1]];
+
+    
+    partida.jugadors[idJugador].cartes[carta[0]][1].push(carta[1]);
+    /* [carta[0][1][carta[1]]]; */
 
     cont++;
    }while(cont!=5);
@@ -130,7 +134,10 @@ function repartirCartes(idJugador){
    
   */
    
-    console.log(funcio+ partida.jugadors[idJugador].cartes.toString());
+
+    console.log(funcio+ "tostring "+ partida.jugadors[idJugador].cartes.toString());
+
+    
 
 }
 
@@ -150,26 +157,21 @@ app.get('/iniciarjoc/:id/:nom', function (req, res, next){
 
         partida.jugadors[idJugador] ={
             nom : nomJugador,
-            cartes : [],
+            cartes : [
+                    [0, []],
+                    [1, []],
+                    [2, []],
+                    [3, []],
+            ],
             intents : 0, 
             victories : 0,
         };
 
         repartirCartes(idJugador);
-        
-        var jugadorA = {
-            nom: (req.params.nom),
-            cartes: [],
-            intents: 0,
-            victories: 0,
-        };
+    
+        res.send(JSON.stringify(partida.jugadors[idJugador]));
 
-        /* console.log(jugadorA.cartes); */
-
-        /* repartirCartes(jugadorA); */
-
-
-        res.send("Rebut: "+partida.jugadors[idJugador].nom+ "\n id"+idJugador+"\n "+partida.jugadors[idJugador].cartes.toString());
+        /* res.send("Rebut: "+partida.jugadors[idJugador].nom+ "\n id"+idJugador+"\n "+partida.jugadors[idJugador].cartes.toString()); */
         /* res.send("Rebut: "+req.params.id); */
 });
 
