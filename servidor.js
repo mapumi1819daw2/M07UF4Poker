@@ -106,7 +106,6 @@ function repartirCartes(idJugador){
     var pos =0;
 
    do{
-
         
     var carta = obtenirCarta();
 
@@ -125,14 +124,8 @@ function repartirCartes(idJugador){
     
     partida.jugadors[idJugador].cartes[carta[0]][1].push(carta[1]);
     /* [carta[0][1][carta[1]]]; */
-
     cont++;
    }while(cont!=5);
-
-   
-   /* partida.barallaCartes[0][1][0]
-   
-  */
    
 
     console.log(funcio+ "tostring "+ partida.jugadors[idJugador].cartes.toString());
@@ -171,8 +164,7 @@ app.get('/iniciarjoc/:id/:nom', function (req, res, next){
     
         res.send(JSON.stringify(partida.jugadors[idJugador]));
 
-        /* res.send("Rebut: "+partida.jugadors[idJugador].nom+ "\n id"+idJugador+"\n "+partida.jugadors[idJugador].cartes.toString()); */
-        /* res.send("Rebut: "+req.params.id); */
+       
 });
 
 
