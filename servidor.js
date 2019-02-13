@@ -9,48 +9,25 @@ var app = express();
 */
 
 
-
-/* cartes -> codi baralla i valor */
-function jugador(nom) {
-    this.nom = nom;
-    this.intents = 0;
-    this.victories = victories;
-  }
-
 var partida = {
-    id : 0,
-    baralles : Array(
-        0,
-        1,
-        2,
-        3
-    ),
-
+    id : 1,
+    
     barallaCartes : [
         [0 ,  ["A","Q","K","J","10","9","8","7","6","5","4","3","2"]], // Cors ♥
         [1, ["A","Q","K","J","10","9","8","7","6","5","4","3","2"]], // Diamants ♦
         [2, ["A","Q","K","J","10","9","8","7","6","5","4","3","2"]], // Piques ♠
         [3 , ["A","Q","K","J","10","9","8","7","6","5","4","3","2"]], // Trèbol  ♣
 
-
-
     ],
-
-
-    
 
     jugadors : Array(
 
     ),
-
-
-    tauler : Array(),
-
-       
-    
+   
     
 };
 
+/* Obtenim aleatòriament una carta de l'array de la baralla de cartes */
 function obtenirCarta(){
 
     var funcio = "[obtenirCarta] ";
@@ -61,10 +38,9 @@ function obtenirCarta(){
     var bEscollida = 0;
     var cEscollida = 0;
 
-    var carta = [];
-
     var valor = null;
 
+     /* Random de la carta */
     do{
 
         bEscollida =Math.floor(Math.random()*baralla);
@@ -73,19 +49,13 @@ function obtenirCarta(){
         valor = partida.barallaCartes[bEscollida][1][cEscollida];
 
     }while(valor == undefined);
-    /* Random de la carta */
+   
 
     delete partida.barallaCartes[bEscollida][1][cEscollida];
    
 
    console.log(funcio+ "Baralla: "+bEscollida);
-   /* console.log(funcio +"cEscollida: "+cEscollida); */
    console.log(funcio +"valor: "+valor);
-
-
-    /* delete array(1); */
-   /*  carta[bEscollida] = valor; */
-   /*  console.log(funcio +"carta: "+carta); */
 
     
     return c = [bEscollida,valor]; // Baralla i carta
@@ -94,7 +64,9 @@ function obtenirCarta(){
 }
 
 
-    
+/* Funció inicial per repartir les cartes a cada jugador
+
+    1- idJugador*/
 function repartirCartes(idJugador){
 
     var funcio= "[repatirCartes] ";
@@ -102,8 +74,6 @@ function repartirCartes(idJugador){
     
 
     var cont =0;
-
-    var pos =0;
 
    do{
         
@@ -114,23 +84,15 @@ function repartirCartes(idJugador){
    
 
     /* partida.barallaCartes[bEscollida][1][cEscollida] */
-    
-    /* Baralla escollida */
-    
-       
-        /* partida.jugadors[idJugador].cartes.push(carta[0]); */
-   
 
     
     partida.jugadors[idJugador].cartes[carta[0]][1].push(carta[1]);
-    /* [carta[0][1][carta[1]]]; */
+
     cont++;
    }while(cont!=5);
    
 
     console.log(funcio+ "tostring "+ partida.jugadors[idJugador].cartes.toString());
-
-    
 
 }
 
@@ -142,13 +104,14 @@ app.get('/iniciarjoc/:id/:nom', function (req, res, next){
 
     var iniciaJoc = "[IniciaJoc]: ";
 
-        partida.id = 1;
-
-        var idJugador = req.params.id;
+        /* var idJugador = req.params.id; */
         var nomJugador = req.params.nom;
 
+        partida.id = 1;
+     
 
-        partida.jugadors[idJugador] ={
+
+        partida.jugadors[nomJugador] ={
             nom : nomJugador,
             cartes : [
                     [0, []],
@@ -160,23 +123,50 @@ app.get('/iniciarjoc/:id/:nom', function (req, res, next){
             victories : 0,
         };
 
-        repartirCartes(idJugador);
+        repartirCartes(nomJugador);
     
-        res.send(JSON.stringify(partida.jugadors[idJugador]));
+        res.send(JSON.stringify(partida.jugadors[nomJugador]));
 
        
 });
 
 
-app.get('/obtenirCarta/:codiPartida', function (req, res, next){
+app.get('/obtenirCarta/:codiPartida/:nom', function (req, res, next){
+
+    /* Manca controlar el num de cartes */
+
+
+    var funcio = "[obtenirCarta] ";
+    var carta = obtenirCarta();
+
+    var nomJugador = req.params.nom;
+
+    console.log(funcio +"baralla "+ carta[0]);
+    console.log(funcio +"carta "+ carta[1]);
+
+    
+    partida.jugadors[nomJugador].cartes[carta[0]][1].push(carta[1]);
+
+    res.send(JSON.stringify(partida.jugadors[nomJugador]));
 
 });
 
 app.get('/mostrarCartes/:codiPartida', function (req, res, next){
 
+
+    
+
 });
 
-app.put('/tirarCarta/:codiPartida/:carta', function (req, res, next){
+app.put('/tirarCarta/:codiPartida/:idjugador/:baralla/:carta', function (req, res, next){
+
+    var funcio = "[tirarCarta]: ";
+
+    var baralla = req.params.baralla;
+    var carta = req.params.carta;
+
+    console.log(funcio+ "baralla "+ baralla+ " carta "+ carta);
+
 
 });
 
