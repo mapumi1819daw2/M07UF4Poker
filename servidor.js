@@ -11,6 +11,9 @@ var app = express();
 
 var partida = {
     id : 1,
+
+
+    mostrarCartes: false,
     
     barallaCartes : [
         [0 ,  ["A","Q","K","J","10","9","8","7","6","5","4","3","2"]], // Cors ♥
@@ -153,7 +156,9 @@ app.get('/obtenirCarta/:codiPartida/:nom', function (req, res, next){
 
 app.get('/mostrarCartes/:codiPartida', function (req, res, next){
 
+    partida.mostrarCartes = true;
 
+    res.send(JSON.stringify(partida));
     
 
 });
@@ -170,7 +175,7 @@ app.put('/tirarCarta/:codiPartida/:idjugador/:baralla/:carta', function (req, re
 
 });
 
-app.put('/moureJugador/:codiPartida/aposta/quantitat', function (req, res, next){
+app.put('/moureJugador/:codiPartida/aposta/:quantitat', function (req, res, next){
 
 });
 
@@ -184,4 +189,4 @@ app.delete('acabarJoc/:codiPartida', function (req, res, next){
 
 app.listen(3000, function () {
     console.log('Servidor escoltant port 3000');
-  })
+  });
