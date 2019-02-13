@@ -23,12 +23,22 @@ var partida = {
 
     ],
 
+
+    /* fitxes:[
+        [0, [25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25]],
+        [0, [50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50]],
+        [0, [100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100]],
+
+    ], */
+
     jugadors : Array(
 
     ),
    
     
 };
+
+
 
 /* Obtenim aleatòriament una carta de l'array de la baralla de cartes */
 function obtenirCarta(){
@@ -66,6 +76,14 @@ function obtenirCarta(){
    
 }
 
+/* Funció que assigna les fitxes inicals a cada jugador */
+function obtenirFitxes(nomJugador){
+    var funcio ="[obtenirFitxes] ";
+
+
+    partida.jugadors[nomJugador].fitxes = [[25,25], [50, 50], [100, 100]];
+
+}
 
 /* Funció inicial per repartir les cartes a cada jugador
 
@@ -103,12 +121,14 @@ function repartirCartes(idJugador){
 
 
 
-app.get('/iniciarjoc/:id/:nom', function (req, res, next){
+app.get('/iniciarjoc/:nom', function (req, res, next){
 
     var iniciaJoc = "[IniciaJoc]: ";
 
         /* var idJugador = req.params.id; */
         var nomJugador = req.params.nom;
+
+        console.log(iniciaJoc+ "nom : "+nomJugador);
 
         partida.id = 1;
      
@@ -122,13 +142,16 @@ app.get('/iniciarjoc/:id/:nom', function (req, res, next){
                     [2, []],
                     [3, []],
             ],
+            fitxes : [],
             intents : 0, 
             victories : 0,
+            apostat: 0,
         };
 
         repartirCartes(nomJugador);
-    
-        res.send(JSON.stringify(partida.jugadors[nomJugador]));
+        obtenirFitxes(nomJugador);
+
+        res.end(JSON.stringify(partida.jugadors[nomJugador]));
 
        
 });
@@ -163,23 +186,43 @@ app.get('/mostrarCartes/:codiPartida', function (req, res, next){
 
 });
 
-app.put('/tirarCarta/:codiPartida/:idjugador/:baralla/:carta', function (req, res, next){
-
+app.post('/tirarCarta', function (req, res, next){
+/* :codiPartida/:idjugador/:baralla/:carta */
     var funcio = "[tirarCarta]: ";
+    
+    var nomJugador = req.body.idJugador;
+    var baralla = req.body.baralla;
+    var carta = req.body.carta;
 
-    var baralla = req.params.baralla;
-    var carta = req.params.carta;
+
+    delete partida.jugadors[nomJugador].cartes[baralla][1][carta];
+   
+
 
     console.log(funcio+ "baralla "+ baralla+ " carta "+ carta);
 
 
 });
 
-app.put('/moureJugador/:codiPartida/aposta/:quantitat', function (req, res, next){
+app.post('/moureJugador', function (req, res, next){
+    /* /:idJugador/aposta/:quantitat */
+
+    var funcio = "[moureJugador]: ";
+
+    var nomJugador = req.body.idJugador;
+    var quantitat = req.body.quantitat;
+
+
+    c
+
+
+   
+
+    
 
 });
 
-app.put('/moureJugador/:codiPartida/passa', function (req, res, next){
+app.post('/moureJugador/:codiPartida/passa', function (req, res, next){
 
 });
 
