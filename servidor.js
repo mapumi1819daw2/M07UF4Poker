@@ -151,7 +151,7 @@ app.get('/iniciarjoc/:nom', function (req, res, next){
         repartirCartes(nomJugador);
         obtenirFitxes(nomJugador);
 
-        res.end(JSON.stringify(partida.jugadors[nomJugador]));
+        res.send(JSON.stringify(partida.jugadors[nomJugador]));
 
        
 });
