@@ -18,11 +18,16 @@ $(function(){
         async: false,
         crossDomain: true,
         success: function(data){        
-          alert(data.nom);
+          /* console.log(data); */
+          console.log(data.tauler);
+
+          var pageName = "tauler.html";
+          document.location.href = pageName;
+         /*  $("a").append(data.nom); */
         },
         error: function (xhr,status,error){
           alert(status);
-        }
+        },
      });  
     
 

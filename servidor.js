@@ -24,6 +24,14 @@ var partida = {
     ],
 
 
+    tauler : [
+        [0, []],
+        [1, []],
+        [2, []],
+        [3, []],
+    ],
+
+
     /* fitxes:[
         [0, [25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25]],
         [0, [50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50]],
@@ -88,11 +96,24 @@ function obtenirFitxes(nomJugador){
 /* Funció inicial per repartir les cartes a cada jugador
 
     1- idJugador*/
-function repartirCartes(idJugador){
+function repartirCartes(idJugador, opcio){
+
+
+    /* Opcio == 1    TAULER
+        OPcio ==2    Jugador */
 
     var funcio= "[repatirCartes] ";
 
-    
+    var quantitatCartes = 0;
+
+
+    /* Quantiat de cartes a repartir */
+    if(opcio==1){
+        quantitatCartes = 2;
+    }
+    else{
+        quantitatCartes = 5;
+    }
 
     var cont =0;
 
@@ -106,14 +127,28 @@ function repartirCartes(idJugador){
 
     /* partida.barallaCartes[bEscollida][1][cEscollida] */
 
+    /* Afegim les cartes en funció de l'opcio [tauler, jugador] */
+    if(opcio==1){
+        partida.tauler[carta[0]][1].push(carta[1]);
+    }
     
-    partida.jugadors[idJugador].cartes[carta[0]][1].push(carta[1]);
+    else{
+        partida.jugadors[idJugador].cartes[carta[0]][1].push(carta[1]);
+    }
+    
 
     cont++;
-   }while(cont!=5);
+   }while(cont!=quantitatCartes);
    
 
-    console.log(funcio+ "tostring "+ partida.jugadors[idJugador].cartes.toString());
+   if(opcio==1){
+    console.log(funcio+ "tostring TAULER "+ partida.tauler.toString());
+   }
+
+   else{
+       console.log(funcio+ "tostring JUGADOR "+ partida.jugadors[idJugador].cartes.toString());
+   }
+    
 
 }
 
@@ -148,10 +183,11 @@ app.get('/iniciarjoc/:nom', function (req, res, next){
             apostat: 0,
         };
 
-        repartirCartes(nomJugador);
+        repartirCartes(null, 1);
+        repartirCartes(nomJugador, 2);
         obtenirFitxes(nomJugador);
 
-        res.send(JSON.stringify(partida.jugadors[nomJugador]));
+        res.send(JSON.stringify(partida));
 
        
 });
