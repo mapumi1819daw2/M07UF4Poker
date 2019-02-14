@@ -1,13 +1,30 @@
 /* Allow cross origin */
 
+
 $(function(){
+
+
+
+  function mostrarPantallaJoc(){
+    
+    var pageName = "tauler.html";
+    document.location.href = pageName;
+    
+   
+  }
 
     /* Crida inicial */
 
+
+    alert(info.nom);
+    
+
     $("#jugar").on("click", function(){
       
-      var nom = $("#nom").val();
+      info.nom = $("#nom").val();
       var adr = "http://localhost:3000/iniciarjoc/"+nom;
+
+    alert("aaa "+info.nom);
       
     $.ajax({ 
         type: "GET",
@@ -20,7 +37,10 @@ $(function(){
           console.log(data.tauler);
 
           var pageName = "tauler.html";
-          document.location.href = pageName;
+         
+         
+         /*  mostrarPantallaJoc(); */
+         
          /*  $("a").append(data.nom); */
         },
         error: function (xhr,status,error){
