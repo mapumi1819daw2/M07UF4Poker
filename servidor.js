@@ -201,7 +201,7 @@ app.get('/iniciarjoc/:nom', function (req, res, next){
        console.log(iniciaJoc);
        console.log(partida);
 
-        repartirCartes(null, 1);
+        
         repartirCartes(nomJugador, 2);
         obtenirFitxes(nomJugador);
 
@@ -291,5 +291,6 @@ app.delete('acabarJoc/:codiPartida', function (req, res, next){
 });
 
 app.listen(3000, function () {
+    repartirCartes(null, 1);
     console.log('Servidor escoltant port 3000');
   });

@@ -2,11 +2,11 @@
 
 
 var tauler = [
-    "c1",
-    "c2",
-    "c3",
-    "c4",
-    "c5",
+  "c1",
+  "c2",
+  "c3",
+  "c4",
+  "c5",
 
 ];
 
@@ -23,11 +23,40 @@ var propies = [
 ];
 
 
+var n = "";
 
-$(function(){
 
 
-  function mostraTauler(data){
+$(function () {
+
+
+  function assignaBaralla(baralla) {
+
+    /* Seleccionem la baralla de la carta */
+
+    var carta = "";
+    switch (baralla) {
+      case 0:
+        carta = "♥"; //&hearts;  ♥
+        break;
+      case 1:
+        carta = "♦";
+        break;
+      case 2:
+        carta = "♠";
+        break;
+      default:
+        carta = "♣";
+        break;
+
+    }
+
+    return carta;
+
+  }
+
+
+  function mostraTauler(data) {
 
     /* Ocultem elements */
     $("#nom").attr("hidden", true);
@@ -36,34 +65,33 @@ $(function(){
     $("#jo").attr("hidden", false);
 
 
-    var n = $("#jo").text();
-   
+    n = $("#jo").text();
+
 
     /* Mostrem tauler i cartes */
-    
-   
+
+
     $("#tauler").attr("hidden", false);
     $("#cartesRival").attr("hidden", false);
     $("#cartesPropies").attr("hidden", false);
 
 
-    /* Nom del rival */
+
 
     console.log(data);
 
     function myFunction(value, index, array) {
-      alert(index);
-        if(index != nom){
-          
-        }
+
+      if (value.nom != n) {
+        $("#nomRival").text(value.nom);
       }
+      else {
+        $("#jo").text(value.nom);
+      }
+    }
 
-      data.jugadors.forEach(myFunction);
+    data.jugadors.forEach(myFunction);
 
-      
-    
-      $("#nomRival").text(data.jugadors)
-   
 
 
     var tamany = data.jugadors;
@@ -72,119 +100,153 @@ $(function(){
 
     /* Mostrem les cartes al taulell */
 
- /*    alert(typeof(data.tauler[2][1])); */
+    /*    alert(typeof(data.tauler[2][1])); */
 
     var cont = 1;
 
-    for(var i =0; i< 5; i++){
+    for (var i = 0; i < 5; i++) {
 
-      
 
-      if(data.tauler[i] == undefined) continue;
+
+      if (data.tauler[i] == undefined) continue;
 
       /* console.log("Tauler "+data.tauler[i]); */
 
-        var t = data.tauler[i][1].length;
+      var t = data.tauler[i][1].length;
 
-          for(var x= 0; x< t; x++){
-            /* console.log( "carta "+data.tauler[i][1][x]); */
+      for (var x = 0; x < t; x++) {
+        /* console.log( "carta "+data.tauler[i][1][x]); */
 
-           
 
-            /* Verifiquem que no es un espai null */
-              if(data.tauler[i][1][x]!= undefined){
-                /* console.log(data.tauler[i][1][x]); */
 
-                /* Id de l'element on el mostrarem */
-                id = "#c"+cont++;
-                console.log("id "+ id);
+        /* Verifiquem que no es un espai null */
+        if (data.tauler[i][1][x] != undefined) {
+          /* console.log(data.tauler[i][1][x]); */
 
-                var baralla = data.tauler[i][0];
+          /* Id de l'element on el mostrarem */
+          id = "#c" + cont++;
+          console.log("id " + id);
 
-                /* Seleccionem la baralla de la carta */
-                switch(baralla){
-                  case 0:
-                    carta = "♥"; //&hearts;  ♥
-                    break;
-                  case 1:
-                    carta = "♦";
-                    break;
-                  case 2:
-                    carta = "♠";
-                    break;
-                  default:
-                    carta = "♣";
-                    break;
+          var baralla = data.tauler[i][0];
 
-                }
+          var carta = assignaBaralla(baralla);
 
-                carta += data.tauler[i][1][x];
 
-                console.log("baralla "+ baralla);
-                console.log(" Carta "+data.tauler[i][1][x]);
-              
-                $(id).text(carta);
 
-              }
+          carta += data.tauler[i][1][x];
+
+          console.log("baralla " + baralla);
+          console.log(" Carta " + data.tauler[i][1][x]);
+
+          $(id).text(carta);
+
+        }
+      }
+
+
+
+
+
+
+
+    }
+
+  }
+
+
+
+  function mostrarCartesPropies(data) {
+
+    var id = "";
+
+    var cont = 1 * 1;
+
+
+
+    function myFunction(value, index, array) {
+
+
+
+      if (value.nom == n) {
+        $("#jo").text(value.nom);
+
+        /* Recorrem l'array de cartes */
+        for (var i = 0; i < 4; i++) {
+
+          var t = value.cartes[i][1].length;
+
+          for (var x = 0; x < t; x++) {
+            if (value.cartes[i][1][x] != undefined) {
+
+              id = "#m" + cont++;
+
+              var baralla = value.cartes[i][0];
+
+              var carta = assignaBaralla(baralla);
+
+              console.log("JO carta "+carta);
+
+              carta += value.cartes[i][1][x];
+
+              console.log("baralla JO" + baralla);
+              console.log(" Carta JO" + value.cartes[i][1][x]);
+              console.log("ID JO "+id);
+
+              $(id).text(carta);
+            }
           }
-        
-      
-      
+        }
 
-      
-      
-        
+
+
+
+      }
+
     }
 
-
-    for(var i=0; i<tamany; i++){
-
-      
-    }
-
-
-
-    
-
+    data.jugadors.forEach(myFunction);
 
 
   }
-    /* Crida inicial */
-
-    $("#jugar").on("click", function(){
-      
-      var nom = $("#nom").val();
-
-      /* Guardem el nostree nom */
-      $("#jo").append(nom);
-      var adr = "http://localhost:3000/iniciarjoc/"+nom;
-
-      $("#id").attr("class", nom);
-      
-    $.ajax({ 
-        type: "GET",
-        dataType: "json",
-        url: adr,
-        async: true,
-        crossDomain: true,
-        success: function(data){        
-          /* console.log(data); */
-          console.log("Tauler :\n");
-          console.log(data.tauler);
-          
 
 
-          mostraTauler(data);
+  /* Crida inicial */
 
-          /* var pageName = "tauler.html";
-          document.location.href = pageName; */
-         /*  $("a").append(data.nom); */
-        },
-        error: function (xhr,status,error){
-          console.log("status: "+ status+ "\nError "+error );
-        },
-     });  
-    
+  $("#jugar").on("click", function () {
+
+    var nom = $("#nom").val();
+
+    /* Guardem el nostree nom */
+    $("#jo").append(nom);
+    var adr = "http://localhost:3000/iniciarjoc/" + nom;
+
+    $("#id").attr("class", nom);
+
+    $.ajax({
+      type: "GET",
+      dataType: "json",
+      url: adr,
+      async: true,
+      crossDomain: true,
+      success: function (data) {
+        /* console.log(data); */
+        console.log("Tauler :\n");
+        console.log(data.tauler);
+
+
+
+        mostraTauler(data);
+        mostrarCartesPropies(data);
+
+        /* var pageName = "tauler.html";
+        document.location.href = pageName; */
+        /*  $("a").append(data.nom); */
+      },
+      error: function (xhr, status, error) {
+        console.log("status: " + status + "\nError " + error);
+      },
+    });
+
 
   });
 
