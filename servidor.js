@@ -79,8 +79,16 @@ function obtenirCarta(){
 function obtenirFitxes(nomJugador){
     var funcio ="[obtenirFitxes] ";
 
+    function myFunction(value, index, array) {
+        console.log("valor "+value.nom);
+        console.log(index);
+          if(value.nom= nomJugador){
+            partida.jugadors[index].fitxes = [[25,25], [50, 50], [100, 100]];
+          }
+    }
+    partida.jugadors.forEach(myFunction);
 
-    partida.jugadors[nomJugador].fitxes = [[25,25], [50, 50], [100, 100]];
+   
 
 }
 
@@ -114,6 +122,8 @@ function repartirCartes(idJugador, opcio){
 
     console.log(funcio +"baralla "+ carta[0]);
     console.log(funcio +"carta "+ carta[1]);
+
+    
    
 
     /* partida.barallaCartes[bEscollida][1][cEscollida] */
@@ -124,7 +134,16 @@ function repartirCartes(idJugador, opcio){
     }
     
     else{
-        partida.jugadors[idJugador][1].cartes[carta[0]][1].push(carta[1]);
+
+        function myFunction(value, index, array) {
+            console.log("valor "+value.nom);
+            console.log(index);
+              if(value.nom= idJugador){
+                partida.jugadors[index].cartes[carta[0]][1].push(carta[1]);
+              }
+        }
+        partida.jugadors.forEach(myFunction);
+        
     }
     
 
@@ -137,7 +156,7 @@ function repartirCartes(idJugador, opcio){
    }
 
    else{
-       console.log(funcio+ "tostring JUGADOR "+ partida.jugadors[idJugador][1].cartes.toString());
+       console.log(funcio+ "tostring JUGADOR "+ partida);
    }
     
 
@@ -160,7 +179,7 @@ app.get('/iniciarjoc/:nom', function (req, res, next){
      
 
 
-        partida.jugadors.push(nomJugador, {
+        partida.jugadors.push( {
             nom : nomJugador,
             cartes : [
                     [0, []],
