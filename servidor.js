@@ -32,16 +32,7 @@ var partida = {
     ],
 
 
-    /* fitxes:[
-        [0, [25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25]],
-        [0, [50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50]],
-        [0, [100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100]],
-
-    ], */
-
-    jugadors : Array(
-
-    ),
+    jugadors : [],
    
     
 };
@@ -109,10 +100,10 @@ function repartirCartes(idJugador, opcio){
 
     /* Quantiat de cartes a repartir */
     if(opcio==1){
-        quantitatCartes = 2;
+        quantitatCartes = 5;
     }
     else{
-        quantitatCartes = 5;
+        quantitatCartes = 2;
     }
 
     var cont =0;
@@ -133,7 +124,7 @@ function repartirCartes(idJugador, opcio){
     }
     
     else{
-        partida.jugadors[idJugador].cartes[carta[0]][1].push(carta[1]);
+        partida.jugadors[idJugador][1].cartes[carta[0]][1].push(carta[1]);
     }
     
 
@@ -146,7 +137,7 @@ function repartirCartes(idJugador, opcio){
    }
 
    else{
-       console.log(funcio+ "tostring JUGADOR "+ partida.jugadors[idJugador].cartes.toString());
+       console.log(funcio+ "tostring JUGADOR "+ partida.jugadors[idJugador][1].cartes.toString());
    }
     
 
@@ -169,7 +160,7 @@ app.get('/iniciarjoc/:nom', function (req, res, next){
      
 
 
-        partida.jugadors[nomJugador] ={
+        partida.jugadors.push(nomJugador, {
             nom : nomJugador,
             cartes : [
                     [0, []],
@@ -181,12 +172,25 @@ app.get('/iniciarjoc/:nom', function (req, res, next){
             intents : 0, 
             victories : 0,
             apostat: 0,
-        };
+        });
+
+       /*  window.btoa() */
+
+       /* console.log(iniciaJoc+ partida.jugadors[nomJugador].nom); */
+       /* console.log(iniciaJoc+ partida.jugadors.length); */
+
+       console.log(iniciaJoc);
+       console.log(partida);
 
         repartirCartes(null, 1);
         repartirCartes(nomJugador, 2);
         obtenirFitxes(nomJugador);
 
+        /* Afegeix a la capçelera l'admissió de petició d'origen desconegut
+            en cas que es carregui desde un host diferent.
+            
+            Això resol un possible problema de fer sol·licitud "file://"*/
+        res.set("Access-Control-Allow-Origin", "*");
         res.send(JSON.stringify(partida));
 
        
@@ -208,7 +212,8 @@ app.get('/obtenirCarta/:codiPartida/:nom', function (req, res, next){
 
     
     partida.jugadors[nomJugador].cartes[carta[0]][1].push(carta[1]);
-
+    
+   /*  res.set("Access-Control-Allow-Origin", "*"); */
     res.send(JSON.stringify(partida.jugadors[nomJugador]));
 
 });

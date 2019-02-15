@@ -45,6 +45,24 @@ $(function(){
     $("#tauler").attr("hidden", false);
     $("#cartesRival").attr("hidden", false);
     $("#cartesPropies").attr("hidden", false);
+
+
+    /* Nom del rival */
+
+    console.log(data);
+
+    function myFunction(value, index, array) {
+      alert(index);
+        if(index != nom){
+          
+        }
+      }
+
+      data.jugadors.forEach(myFunction);
+
+      
+    
+      $("#nomRival").text(data.jugadors)
    
 
 
@@ -56,7 +74,7 @@ $(function(){
 
  /*    alert(typeof(data.tauler[2][1])); */
 
- var cont = 1;
+    var cont = 1;
 
     for(var i =0; i< 5; i++){
 
@@ -67,10 +85,6 @@ $(function(){
       /* console.log("Tauler "+data.tauler[i]); */
 
         var t = data.tauler[i][1].length;
-
-       /*  console.log("tamany "+t);
- */
-        
 
           for(var x= 0; x< t; x++){
             /* console.log( "carta "+data.tauler[i][1][x]); */
@@ -90,7 +104,7 @@ $(function(){
                 /* Seleccionem la baralla de la carta */
                 switch(baralla){
                   case 0:
-                    carta = "♥";
+                    carta = "♥"; //&hearts;  ♥
                     break;
                   case 1:
                     carta = "♦";
@@ -151,11 +165,13 @@ $(function(){
         type: "GET",
         dataType: "json",
         url: adr,
-        async: false,
+        async: true,
         crossDomain: true,
         success: function(data){        
           /* console.log(data); */
+          console.log("Tauler :\n");
           console.log(data.tauler);
+          
 
 
           mostraTauler(data);
@@ -165,7 +181,7 @@ $(function(){
          /*  $("a").append(data.nom); */
         },
         error: function (xhr,status,error){
-          console.log(status);
+          console.log("status: "+ status+ "\nError "+error );
         },
      });  
     
