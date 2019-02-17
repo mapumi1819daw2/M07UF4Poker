@@ -216,6 +216,16 @@ app.get('/iniciarjoc/:nom', function (req, res, next){
 });
 
 
+app.get('/mostraRival', function (req, res, next){
+
+    console.log("Quantiat crides jugadors: "+ partida.jugadors.length);
+
+    res.send(JSON.stringify(partida));
+
+
+});s
+
+
 app.get('/obtenirCarta/:codiPartida/:nom', function (req, res, next){
 
     /* Manca controlar el num de cartes */

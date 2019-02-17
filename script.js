@@ -30,6 +30,38 @@ var n = "";
 $(function () {
 
 
+
+  /**
+  * Crida AJAX que s'executa quan els jugadors tiren una fitxa
+   */
+  function cridaAjaxMostraRival(url) {
+    xhr = new XMLHttpRequest();
+
+    if (!xhr) {
+      alert('problemes amb XHR');
+      return false;
+    }
+    xhr.onreadystatechange = callbackAJAXjugada;
+    xhr.open('GET', url, true); // el 3r paràmetre indica que és asíncron
+    xhr.send(null);
+  }
+
+  function callbackAJAXjugada(){
+    if (xhr.readyState === XMLHttpRequest.DONE) {
+      if (xhr.status === 200) {
+          //dades = xhr.response;
+          dada = JSON.parse(xhr.response);
+         console.log("Funcio callBack "+dada);
+      } else {
+          console.log('problemes amb l\'AJAX');
+      }
+  }
+  }
+
+
+
+
+
   function assignaBaralla(baralla) {
 
     /* Seleccionem la baralla de la carta */
@@ -184,13 +216,13 @@ $(function () {
 
               var carta = assignaBaralla(baralla);
 
-              console.log("JO carta "+carta);
+              console.log("JO carta " + carta);
 
               carta += value.cartes[i][1][x];
 
               console.log("baralla JO" + baralla);
               console.log(" Carta JO" + value.cartes[i][1][x]);
-              console.log("ID JO "+id);
+              console.log("ID JO " + id);
 
               $(id).text(carta);
             }
@@ -229,7 +261,7 @@ $(function () {
       async: true,
       crossDomain: true,
       success: function (data) {
-        /* console.log(data); */
+        cridaAjaxMostraRival("http://localhost:3000/mostraRival");
         console.log("Tauler :\n");
         console.log(data.tauler);
 
