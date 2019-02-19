@@ -30,6 +30,58 @@ var n = "";
 $(function () {
 
 
+  function mostrarFitxes(data){
+
+    var id = "";
+
+    var cont = 1 * 1;
+
+    console.log("MostraFitxes");
+
+   /*  function myFunction(value, index, array) {
+
+
+
+      if (value.nom == n) {
+       console.log("fitxes "+value.nom);
+
+        /* Recorrem l'array de cartes */
+       /* for (var i = 0; i < 6; i++) {
+
+
+          console.log(value.fitxes[i]);
+          var t = value.fitxes[i][1].length;
+
+          for (var x = 0; x < t; x++) {
+            if (value.fitxes[i][1][x] != undefined) {
+
+              id = "#f" + cont++;
+              
+              var fitxa = value.fitxes[i][1][x];
+              console.log(" fitxa JO" + value.fitxes[i][1][x]);
+              console.log("ID JO " + id);
+
+              $(id).text(fitxa);
+            }
+          }
+        }
+
+
+
+
+      }
+
+    }
+
+    console.log("MostraFitxes2");
+    data.jugadors.forEach(myFunction); */
+
+  }
+
+
+
+
+
   function assignaBaralla(baralla) {
 
     /* Seleccionem la baralla de la carta */
@@ -155,6 +207,10 @@ $(function () {
 
 
 
+  
+
+
+
   function mostrarCartesPropies(data) {
 
     var id = "";
@@ -184,13 +240,13 @@ $(function () {
 
               var carta = assignaBaralla(baralla);
 
-              console.log("JO carta "+carta);
+              console.log("JO carta " + carta);
 
               carta += value.cartes[i][1][x];
 
               console.log("baralla JO" + baralla);
               console.log(" Carta JO" + value.cartes[i][1][x]);
-              console.log("ID JO "+id);
+              console.log("ID JO " + id);
 
               $(id).text(carta);
             }
@@ -229,7 +285,7 @@ $(function () {
       async: true,
       crossDomain: true,
       success: function (data) {
-        /* console.log(data); */
+        /* cridaAjaxMostraRival("http://localhost:3000/mostraRival"); */
         console.log("Tauler :\n");
         console.log(data.tauler);
 
@@ -237,6 +293,7 @@ $(function () {
 
         mostraTauler(data);
         mostrarCartesPropies(data);
+        mostrarFitxes(data);
 
         /* var pageName = "tauler.html";
         document.location.href = pageName; */
