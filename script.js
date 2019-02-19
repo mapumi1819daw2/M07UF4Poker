@@ -38,7 +38,7 @@ $(function () {
 
     console.log("MostraFitxes");
 
-   /*  function myFunction(value, index, array) {
+     function myFunction(value, index, array) {
 
 
 
@@ -46,38 +46,33 @@ $(function () {
        console.log("fitxes "+value.nom);
 
         /* Recorrem l'array de cartes */
-       /* for (var i = 0; i < 6; i++) {
+       for (var i = 0; i < 3; i++) {
 
 
           console.log(value.fitxes[i]);
-          var t = value.fitxes[i][1].length;
+          
 
-          for (var x = 0; x < t; x++) {
-            if (value.fitxes[i][1][x] != undefined) {
-
+          for (var x = 0; x < 2; x++) {
+          
               id = "#f" + cont++;
               
-              var fitxa = value.fitxes[i][1][x];
-              console.log(" fitxa JO" + value.fitxes[i][1][x]);
+              var fitxa = value.fitxes[i][x];
+              console.log(" fitxa JO" + value.fitxes[i][x]);
               console.log("ID JO " + id);
 
               $(id).text(fitxa);
-            }
+            
           }
         }
-
-
-
 
       }
 
     }
 
-    console.log("MostraFitxes2");
-    data.jugadors.forEach(myFunction); */
+
+    data.jugadors.forEach(myFunction);
 
   }
-
 
 
 
@@ -126,6 +121,7 @@ $(function () {
     $("#tauler").attr("hidden", false);
     $("#cartesRival").attr("hidden", false);
     $("#cartesPropies").attr("hidden", false);
+    $("#fitxes").attr("hidden", false);
 
 
 
@@ -196,18 +192,9 @@ $(function () {
       }
 
 
-
-
-
-
-
     }
 
   }
-
-
-
-  
 
 
 

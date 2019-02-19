@@ -3,13 +3,14 @@
 <head>
 
 
-    
+
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <style href="style.css"></style>
+    <link rel="stylesheet" type="text/css" href="style.css">
     <meta charset="UTF-8">
-    <script  type="text/javascript" src="script.js"></script>
+    <script type="text/javascript" src="jugant.js"></script>
+    <script type="text/javascript" src="script.js"></script>
     <link href="https://fonts.googleapis.com/css?family=Oxygen" rel="stylesheet">
-   
+
     <title>El poker</title>
 
 </head>
@@ -22,48 +23,54 @@
 
     <p>Començar partida!</p>
 
-        <input class="id" id="id" type="hidden"/>
-        <input type="text" id="nom" placeholder="Nom:" />
+    <input class="id" id="id" type="hidden" />
+    <input type="text" id="nom" placeholder="Nom:" />
 
-        <button id="jugar">Jugar</button>
-
-        
-        <div id="tauler" hidden>
-
-            <p><strong>Tauler</strong></p>
-            <a id="c1"></a>
-            <a id="c2"></p>
-            <a id="c3"></a>
-            <a id="c4"></a>
-            <a id="c5"></a>
-        </div>
-
-        <div id="cartesRival" hidden>
-                <p><strong id="nomRival"></strong></p>
-            <a id="r1"></a>
-            <a id="r2"></a>
-        </div>
-
-        <div id="cartesPropies" hidden>
-                <p><strong id="jo"></strong></p>
-            <a id="m1"></a>
-            <a id="m2"></a>
-
-            <div id="fitxes">
-                <a d="f1"></a>
-                <a d="f2"></a>
-                <a d="f3"></a>
-                <a d="f4"></a>
-                <a d="f5"></a>
-                <a d="f6"></a>
-            </div>
-        </div>
+    <button id="jugar">Jugar</button>
 
 
-      <!--   <p tauler=""></p> -->
+    <div id="tauler" hidden>
 
-        <p id="jo"  hidden></p>
-   
+        <p><strong>Tauler</strong></p>
+        <span id="c1"></span>
+        <span id="c2"></span>
+        <span id="c3"></span>
+        <span id="c4"></span>
+        <span id="c5"></span>
+    </div>
+
+    <div id="cartesRival" hidden>
+        <p><strong id="nomRival"></strong></p>
+        <a id="r1"></a>
+        <a id="r2"></a>
+    </div>
+
+    <div id="cartesPropies" hidden>
+        <p><strong id="jo"></strong></p>
+        <span id="m1"></span>
+        <span id="m2"></span>
+
+        <button id="tirar">Tirar Carta</button>
+    </div>
+
+    <div id="fitxes" hidden>
+        <p><strong id="nomFitxes">Fitxes</strong></p>
+        <span id="f1"></span>
+        <span id="f2"></span>
+        <span id="f3"></span>
+        <span id="f4"></span>
+        <span id="f5"></span>
+        <span id="f6"></span>
+
+        <button id="apostar">Apostar</button>
+    </div>
+    
+
+
+    <!--   <p tauler=""></p> -->
+
+    <p id="jo" hidden></p>
+
 
 
 

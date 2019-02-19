@@ -1,9 +1,10 @@
-a{
+span{
     position: relative;
-
-    width: 100px;
+    cursor: pointer;
+    width: 50px;
     height: 100px;
 
-    padding: 50px, 50p, 50px, 50px;
+    border: 1px solid;
+  border-radius: 5px;
 
 }
