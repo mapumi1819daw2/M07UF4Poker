@@ -1,5 +1,10 @@
 var express = require('express');
 var app = express();
+var bodyParser = require('body-parser');
+
+var urlencodedParser = bodyParser.urlencoded({
+    extended: false
+})
 
 
 /*  0- Cors ♥
@@ -279,16 +284,18 @@ app.post('/tirarCarta', function (req, res, next){
 
 });
 
-app.post('/moureJugador', function (req, res, next){
+app.post('/moureJugador/aposta',urlencodedParser, function (req, res, next){
     /* /:idJugador/aposta/:quantitat */
 
     var funcio = "[moureJugador]: ";
 
-    var nomJugador = req.body.idJugador;
+    var nomJugador = req.body.nom;
     var quantitat = req.body.quantitat;
 
 
-    c
+    console.log(funcio);
+    console.log("Nom jugador: "+nomJugador);
+    console.log("Aposta: "+quantitat);
 
 
    
@@ -308,4 +315,4 @@ app.delete('acabarJoc/:codiPartida', function (req, res, next){
 app.listen(3000, function () {
     repartirCartes(null, 1);
     console.log('Servidor escoltant port 3000');
-  });
+});
