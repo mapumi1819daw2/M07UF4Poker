@@ -113,7 +113,7 @@ function repartirCartes(idJugador, opcio){
 
     /* Quantiat de cartes a repartir */
     if(opcio==1){
-        quantitatCartes = 5;
+        quantitatCartes = 2;
     }
     else{
         quantitatCartes = 2;

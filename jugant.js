@@ -28,7 +28,7 @@ $(function () {
 
 
     /* Seleccionem una carta o fitxa */
-    $("span").on("click", function () {
+    $(".clicable").on("click", function () {
         var id = $(this).attr("id");
         console.log("Click: " + id);
 

@@ -150,11 +150,10 @@ $(function () {
 
     /*    alert(typeof(data.tauler[2][1])); */
 
-    var cont = 1;
+    var cont = 1*1;
 
     for (var i = 0; i < 5; i++) {
-
-
+      
 
       if (data.tauler[i] == undefined) continue;
 
@@ -166,10 +165,10 @@ $(function () {
         /* console.log( "carta "+data.tauler[i][1][x]); */
 
 
-
         /* Verifiquem que no es un espai null */
         if (data.tauler[i][1][x] != undefined) {
           /* console.log(data.tauler[i][1][x]); */
+          
 
           /* Id de l'element on el mostrarem */
           id = "#c" + cont++;
@@ -182,7 +181,7 @@ $(function () {
 
 
           carta += data.tauler[i][1][x];
-
+          
           console.log("baralla " + baralla);
           console.log(" Carta " + data.tauler[i][1][x]);
 
@@ -239,9 +238,6 @@ $(function () {
             }
           }
         }
-
-
-
 
       }
 
