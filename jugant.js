@@ -12,11 +12,11 @@ $(function () {
             dataType: "json",
             data: aposta,
             url: adr,
-            async: true,
+            async: false,
             crossDomain: true,
             success: function (data) {
 
-                console.log(data);
+                console.log(JSON.parse(data));
                 
    
             },
@@ -71,14 +71,16 @@ $(function () {
 
             function myFunction(value, index, array) {
                 apostat += value * 1;
-
             }
+
+
 
             var aposta = {
                 nom : $("#jo").text(),
-                quantitat : apostat,
-            }
+                quantitat : apostes,
+            };
 
+            
 
             enviaAposta(aposta);
 
