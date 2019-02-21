@@ -76,7 +76,6 @@ $(function () {
 
 
 
-
   function assignaBaralla(baralla) {
 
     /* Seleccionem la baralla de la carta */
@@ -103,54 +102,32 @@ $(function () {
   }
 
 
-  function mostraTauler(data) {
-
-    /* Ocultem elements */
-    $("#nom").attr("hidden", true);
-    $("#jugar").attr("hidden", true);
-
-    $("#jo").attr("hidden", false);
+  /* Funció que mostra les cartes al tauler
+    data : partida */
+  function mostraTauler(data){
 
 
-    n = $("#jo").text();
+    /* Mostrem les etiquetes HTML  del div Tauler ocultes fins ara */
+    switch(data.torn){
+      case 2:
+        $("#c4").attr("hidden", false);
 
-
-    /* Mostrem tauler i cartes */
-
-
-    $("#tauler").attr("hidden", false);
-    $("#cartesRival").attr("hidden", false);
-    $("#cartesPropies").attr("hidden", false);
-    $("#fitxes").attr("hidden", false);
-
-
-
-
-    console.log(data);
-
-    function myFunction(value, index, array) {
-
-      if (value.nom != n) {
-        $("#nomRival").text(value.nom);
-      }
-      else {
-        $("#jo").text(value.nom);
-      }
+        break;
+      
+      case 3:
+        $("#c5").attr("hidden", false);
+        break;
     }
 
-    data.jugadors.forEach(myFunction);
 
-
-
-    var tamany = data.jugadors;
 
     var carta = "";
 
     /* Mostrem les cartes al taulell */
 
-    /*    alert(typeof(data.tauler[2][1])); */
-
     var cont = 1*1;
+
+
 
     for (var i = 0; i < 5; i++) {
       
@@ -192,6 +169,49 @@ $(function () {
 
 
     }
+
+  }
+
+
+  function mostraTaulerInicial(data) {
+
+    /* Ocultem elements */
+    $("#nom").attr("hidden", true);
+    $("#jugar").attr("hidden", true);
+
+    $("#jo").attr("hidden", false);
+
+
+    n = $("#jo").text();
+
+
+    /* Mostrem tauler i cartes */
+
+
+    $("#tauler").attr("hidden", false);
+    $("#cartesRival").attr("hidden", false);
+    $("#cartesPropies").attr("hidden", false);
+    $("#fitxes").attr("hidden", false);
+
+
+
+
+    console.log(data);
+
+    function myFunction(value, index, array) {
+
+      if (value.nom != n) {
+        $("#nomRival").text(value.nom);
+      }
+      else {
+        $("#jo").text(value.nom);
+      }
+    }
+
+    data.jugadors.forEach(myFunction);
+
+
+    mostraTauler(data);
 
   }
 
@@ -274,7 +294,7 @@ $(function () {
 
 
 
-        mostraTauler(data);
+        mostraTaulerInicial(data);
         mostrarCartesPropies(data);
         mostrarFitxes(data);
 

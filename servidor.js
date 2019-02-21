@@ -17,6 +17,8 @@ var urlencodedParser = bodyParser.urlencoded({
 var partida = {
     id: 1,
 
+    torn : 1,
+
 
     mostrarCartes: false,
 
@@ -239,15 +241,36 @@ app.get('/mostraRival', function (req, res, next) {
 });
 
 
-app.get('/obtenirCarta/:codiPartida/:nom', function (req, res, next) {
+app.get('/obtenirCarta/:torn', function (req, res, next) {
 
     /* Manca controlar el num de cartes */
 
 
     var funcio = "[obtenirCarta] ";
-    var carta = obtenirCarta();
+    
 
-    var nomJugador = req.params.nom;
+
+    console.log(funcio);
+    
+    var torn = req.params.torn;
+
+    console.log("torn: "+torn);
+
+    /* Comprobem si ja s'ha demanat la carta o no */
+
+    if(torn == partida.torn){
+        res.send(JSON.stringify(partida.tauler));
+    }else{
+        var carta = obtenirCarta();
+
+        partida.tauler[carta[0]][1].push(carta[1]);
+        res.send(JSON.stringify(partida.tauler));
+
+    }
+
+
+
+    /* var nomJugador = req.params.nom;
 
     console.log(funcio + "baralla " + carta[0]);
     console.log(funcio + "carta " + carta[1]);
@@ -256,7 +279,7 @@ app.get('/obtenirCarta/:codiPartida/:nom', function (req, res, next) {
     partida.jugadors[nomJugador].cartes[carta[0]][1].push(carta[1]);
 
     /*  res.set("Access-Control-Allow-Origin", "*"); */
-    res.send(JSON.stringify(partida.jugadors[nomJugador]));
+    /* res.send(JSON.stringify(partida.jugadors[nomJugador])); */ 
 
 });
 
