@@ -1,6 +1,8 @@
 var express = require('express');
 var app = express();
 var bodyParser = require('body-parser');
+var jwt = require('jsonwebtoken');
+
 
 var urlencodedParser = bodyParser.urlencoded({
     extended: true
@@ -220,6 +222,8 @@ app.get('/iniciarjoc/:nom', function (req, res, next) {
         
         Això resol un possible problema de fer sol·licitud "file://"*/
     res.set("Access-Control-Allow-Origin", "*");
+
+    /* var token = jwt.sign(partida, 'shhhhh'); */
     res.send(JSON.stringify(partida));
 
 

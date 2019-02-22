@@ -1,5 +1,6 @@
 /* Allow cross origin */
 
+/* var jwtDecode = require('jwt-decode'); */
 
 var tauler = [
   "c1",
@@ -290,6 +291,10 @@ $(function () {
       success: function (data) {
         /* cridaAjaxMostraRival("http://localhost:3000/mostraRival"); */
         console.log("Tauler :\n");
+       /*  var decoded = jwt_decode(data);
+        console.log(decoded);
+        */
+        /* console.log(data.tauler); */
         console.log(data.tauler);
 
 
