@@ -254,7 +254,8 @@ app.get('/obtenirCarta/:torn', function (req, res, next) {
     
     var torn = req.params.torn;
 
-    console.log("torn: "+torn);
+    console.log("torn jugador: "+torn);
+    console.log("Torn partida: "+partida.torn);
 
     /* Comprobem si ja s'ha demanat la carta o no */
 
@@ -262,6 +263,7 @@ app.get('/obtenirCarta/:torn', function (req, res, next) {
         res.send(JSON.stringify(partida.tauler));
     }else{
         var carta = obtenirCarta();
+        partida.torn ++;
 
         partida.tauler[carta[0]][1].push(carta[1]);
         res.send(JSON.stringify(partida.tauler));
@@ -396,6 +398,7 @@ app.delete('acabarJoc/:codiPartida', function (req, res, next) {
 });
 
 app.listen(3000, function () {
-    repartirCartes(null, 1);
+    
     console.log('Servidor escoltant port 3000');
+    repartirCartes(null, 1);
 });

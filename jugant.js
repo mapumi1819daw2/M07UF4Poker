@@ -154,7 +154,7 @@ $(function () {
                 if (data.valor == true) {
                     console.log("Aposta feta");
                     torn++;
-                    console.log(torn);
+                    console.log("torn "+torn);
                     var addr = "http://localhost:3000/obtenirCarta/" + torn;
                     demanarCarta(addr);
                 }
